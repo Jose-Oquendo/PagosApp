@@ -32,8 +32,8 @@ export default defineConfig((/* ctx */) => {
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#build
     build: {
       target: {
-        // browser: 'baseline-widely-available',
-        // node: 'node22'
+        browser: 'baseline-widely-available',
+        node: 'node22'
       },
 
       filenameBasedRouting: false,
@@ -91,7 +91,7 @@ export default defineConfig((/* ctx */) => {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ['Notify'],
     },
 
     // animations: 'all', // --- includes all animations
@@ -134,7 +134,7 @@ export default defineConfig((/* ctx */) => {
       // extendSSRManifestJson (json) {},
       // extendSSRWebserverConf (rolldownConf) {},
 
-      // pwa: true,
+      pwa: false,
       // pwaOfflineHtmlFilename: 'offline.html', // do NOT use index.html as name!
       // extendSSRGenerateSWOptions (cfg) {},
       // extendSSRInjectManifestOptions (cfg) {},
