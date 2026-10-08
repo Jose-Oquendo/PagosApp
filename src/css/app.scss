@@ -1,1 +1,15 @@
 // app global css
+.bg-apppagos {
+  background-color: $apppagos !important;
+}
+
+.q-layout__section--marginal {
+  background-color: $apppagos !important;
+}
+.q-item__section--side > .q-avatar {
+  background-color: $apppagos !important;
+}
+.q-item.q-router-link--active,
+.q-item--active {
+  color: $apppagos !important;
+}
