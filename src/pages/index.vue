@@ -6,13 +6,13 @@
 
         <q-toolbar-title> Quasar App </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn flat dense round icon="logout" @click="handleLogout" />
       </q-toolbar>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Essential Links </q-item-label>
+        <q-item-label header> Menú </q-item-label>
 
         <EssentialLink v-for="link in linksList" :key="link.label" v-bind="link" />
       </q-list>
@@ -26,51 +26,26 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useAuthStore } from '../stores/auth-store';
 import EssentialLink from '@/components/EssentialLink.vue'
+import { useRouter } from 'vue-router';
+
+const auth = useAuthStore();
+const router = useRouter();
 
 const linksList = [
   {
-    label: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
+    label: 'Inicio',
+    caption: 'Página principal',
+    icon: 'home',
+    link: '/',
   },
   {
-    label: 'GitHub',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    label: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    label: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    label: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    label: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    label: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
+    label: 'Segunda',
+    caption: 'Segunda página',
+    icon: 'article',
+    link: '/second',
+  }
 ]
 
 const leftDrawerOpen = ref(false)
@@ -78,4 +53,10 @@ const leftDrawerOpen = ref(false)
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
+
+async function handleLogout() {
+  await auth.handleLogout();
+  await router.push({ name: 'login' });
+}
+
 </script>

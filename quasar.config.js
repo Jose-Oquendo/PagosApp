@@ -36,8 +36,7 @@ export default defineConfig((/* ctx */) => {
         // node: 'node22'
       },
 
-      // https://v2.quasar.dev/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing
-      filenameBasedRouting: true,
+      filenameBasedRouting: false,
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       // vueRouterBase,
