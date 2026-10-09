@@ -8,28 +8,13 @@
         </div>
       </div>
 
-      <q-btn
-        color="indigo-6"
-        icon="add"
-        label="Nuevo Método"
-        unelevated
-        @click="goToCreatePayment"
-      />
+      <q-btn color="indigo-6" icon="add" label="Nuevo Método" unelevated @click="goToCreatePayment" />
     </div>
 
-    <GenericFilter
-      :fields="filterConfig"
-      @search="onApplyFilters"
-      @clear="onResetFilters"
-    />
+    <GenericFilter :fields="filterConfig" @search="onApplyFilters" @clear="onResetFilters" />
 
-    <GenericTable
-      :rows="paymentStore.filteredPaymentList"
-      :columns="columns"
-      :loading="paymentStore.isLoading"
-      row-key="id"
-      @row-press="onMethodSelect"
-    >
+    <GenericTable :rows="paymentStore.filteredPaymentList" :columns="columns" :loading="paymentStore.isLoading"
+      row-key="id" @row-press="onMethodSelect">
       <template #body-cells="{ row }">
         <q-td key="name">
           <div class="text-weight-bold text-grey-9">{{ row.name }}</div>
@@ -37,11 +22,7 @@
 
         <q-td key="type">
           <div class="row items-center q-gutter-x-xs">
-            <q-icon
-              :name="getTypeIcon(row.type)"
-              color="indigo-6"
-              size="1.2rem"
-            />
+            <q-icon :name="getTypeIcon(row.type)" color="indigo-6" size="1.2rem" />
             <span>{{ row.type }}</span>
           </div>
         </q-td>
@@ -58,21 +39,13 @@
 
         <q-td key="acciones" class="text-center">
           <div class="row items-center justify-center q-gutter-x-xs" @click.stop>
-            <q-toggle
-              :model-value="row.state === 'Activo'"
-              color="indigo-6"
-              dense
-              @update:model-value="() => onStatusChange(row)"
-            />
-            <q-btn
-              flat
-              round
-              dense
-              icon="visibility"
-              color="grey-7"
-              @click.stop="onMethodSelect(row)"
-            >
+            <q-toggle :model-value="row.state === 'Activo'" color="indigo-6" dense
+              @update:model-value="() => onStatusChange(row)" />
+            <q-btn flat round dense icon="visibility" color="grey-7" @click.stop="onMethodSelect(row, 'view')">
               <q-tooltip>Ver Detalles</q-tooltip>
+            </q-btn>
+            <q-btn flat round dense icon="delete" color="grey-7" @click.stop="onMethodSelect(row, 'delete')">
+              <q-tooltip>Eliminar</q-tooltip>
             </q-btn>
           </div>
         </q-td>
@@ -103,12 +76,14 @@ const filterConfig = [
     name: 'search',
     label: 'Buscar por Nombre',
     type: 'text',
+    required: false,
     colClass: 'col-12 col-md-5',
   },
   {
     name: 'type',
     label: 'Tipo',
     type: 'select',
+    required: false,
     options: [
       { label: 'Todos los tipos', value: '' },
       { label: 'Tarjeta', value: 'Tarjeta' },
@@ -122,12 +97,14 @@ const filterConfig = [
     name: 'state',
     label: 'Estado',
     type: 'select',
+    required: false,
     options: [
       { label: 'Todos los estados', value: '' },
       { label: 'Activo', value: 'Activo' },
       { label: 'Inactivo', value: 'Inactivo' },
     ],
     colClass: 'col-12 col-md-3',
+
   },
 ]
 
@@ -164,9 +141,30 @@ const onResetFilters = async () => {
   await paymentStore.resetFilterData()
 }
 
-const onMethodSelect = (item) => {
-  paymentStore.setSelectedPayment(item)
-  isModalOpen.value = true
+const onMethodSelect = (item, action) => {
+  if (action === 'delete') {
+    $q.dialog({
+      title: 'Confirmación',
+      message: '¿Estás seguro de que deseas eliminar este elemento?',
+      cancel: {
+        label: 'Cancelar',
+        color: 'grey-7',
+        flat: true
+      },
+      ok: {
+        label: 'Sí, eliminar',
+        color: 'negative'
+      },
+      persistent: true
+    }).onOk(() => {
+      paymentStore.setSelectedPayment(item)
+      paymentStore.deletePayment(item.id)
+    })
+    return
+  } else {
+    paymentStore.setSelectedPayment(item)
+    isModalOpen.value = true
+  }
 }
 
 const onStatusChange = async (row) => {

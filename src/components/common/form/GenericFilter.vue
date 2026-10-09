@@ -1,40 +1,19 @@
 <template>
   <q-card flat bordered class="q-pa-md q-mb-md full-width">
-    <q-form @submit.prevent="handleSearch" @reset.prevent="handleClear">
+    <q-form @submit.prevent="handleSearch">
       <div class="row q-col-gutter-sm items-center">
-        <div
-          v-for="field in fields"
-          :key="field.name"
-          :class="field.colClass || 'col-12 col-md-3'"
-        >
-          <q-input
-            v-if="['text', 'number', 'search'].includes(field.type)"
-            v-model="formValues[field.name]"
-            :type="field.type"
-            :label="field.label"
-            outlined
-            dense
-            clearable
-            :error="errors[field.name]"
-            @update:model-value="errors[field.name] = false"
-          />
-          <q-select
-            v-else-if="field.type === 'select'"
-            v-model="formValues[field.name]"
-            :options="field.options"
-            :label="field.label"
-            :emit-value="field.emitValue ?? true"
-            :map-options="field.mapOptions ?? true"
-            outlined
-            dense
-            clearable
-            :error="errors[field.name]"
-            @update:model-value="errors[field.name] = false"
-          />
+        <div v-for="field in fields" :key="field.name" :class="field.colClass || 'col-12 col-md-3'">
+          <q-input v-if="['text', 'number', 'search'].includes(field.type)" v-model="formValues[field.name]"
+            :type="field.type" :label="field.label" outlined dense clearable :error="errors[field.name]"
+            @update:model-value="errors[field.name] = false" :required="field.required ?? false" />
+          <q-select v-else-if="field.type === 'select'" v-model="formValues[field.name]" :options="field.options"
+            :label="field.label" :emit-value="field.emitValue ?? true" :map-options="field.mapOptions ?? true" outlined
+            dense clearable :error="errors[field.name]" @update:model-value="errors[field.name] = false"
+            :required="field.required ?? false" />
         </div>
 
         <div class="col-12 col-md-auto q-ml-auto q-gutter-x-sm">
-          <q-btn label="Limpiar" color="grey-7" flat icon="refresh" type="reset" />
+          <q-btn label="Limpiar" @click="handleClear" color="grey-7" flat icon="refresh" type="reset" />
           <q-btn label="Buscar" color="primary" icon="search" type="submit" />
         </div>
       </div>

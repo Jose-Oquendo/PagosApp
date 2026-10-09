@@ -1,38 +1,58 @@
-# PruebaTecnica App (pagosapp)
+# Prueba Tecnica Pagos App
 
-## Install the dependencies
+Aplicativo para prueba técnica - Vacante: Desarrollador Frontend VueJs.
+
+## 1. Instrucciones para la instalación y ejecución en entorno local
+
+El aplicativo fue construido con:
+
+- Vue.js 3
+- Quasar Framework 2
+- Pinia (State Management)
+- Composition API (setup)
+- Scoped CSS & Global CSS
+- Routing (vue-router)
+- Backend Mock Data API:
+  - src/backend-mock/
+    - index.js
+    - services/auth-backend.service.js
+    - utils/response.js
+    - utils/delay.js
+    - data/users.mock.js
+
+### Pasos de Instalación
 
 ```bash
-pnpm install
+npm run dev
 # or: yarn/npm/bun install
 ```
 
-### Start the app in development mode (HMR, error reporting, etc.)
+### Iniciar la aplicacion en modo desarrollo
 
 ```bash
+npx quasar dev
+# o si dispone de Quasar CLI de manera global:
 quasar dev
+# o utilizando el script de npm:
+npm run dev
 ```
 
-### Format & Lint the files
+### Visualización de la aplicación
 
-```bash
-pnpm run lint
-# or: yarn/npm/bun run lint
-```
+El servidor se compilará y la aplicación estará disponible en la dirección local proporcionada por la consola (por defecto `http://localhost:9000`)
 
-...or just check formatting & linting:
+## 2. Supuestos adoptados respecto a las estructuras de datos y el tipado del modelo de negocio.
 
-```bash
-pnpm run lint:check
-# or: yarn/npm/bun run lint:check
-```
+Se ha creado una API mock para simular el backend, que permite implementar la lógica de negocio y el flujo de la aplicación sin necesidad de un backend real. Gracias a la funcion "delay(ms)", se puede simular la latencia de la red. Se ha configurado un delay especifico para cada función. Este parametro puede ser modificado en el archivo src/backend/index.js
 
-### Build the app for production
+La API mock es usada por AuthService y PaymentService, separados de los stores definidos pretendiento de esta forma respetar el principio de responsabilidad única. Esta API mock proporciona los siguientes servicios:
 
-```bash
-quasar build
-```
+- Login
+- Creacion y verificacion de token de sesion
+- Obtener datos de usuario
+- Obtener listado de pagos
+- Crear nuevo elemento de pago
+- Actializar elemento de pago
+- Eliminar elemento de pago
 
-### Customize the configuration
-
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-file).
+Se ha implementado una separacion modular de los elementos de la vista, de forma que se puedan reutilizar en diferentes contextos. Esto facilita el mantenimiento y la escalabilidad del código.

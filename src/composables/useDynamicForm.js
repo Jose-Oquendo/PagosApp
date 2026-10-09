@@ -1,11 +1,9 @@
-// composables/useDynamicForm.js
 import { reactive, watch } from 'vue'
 
 export function useDynamicForm(fields, initialValues = {}) {
   const formValues = reactive({})
   const errors = reactive({})
 
-  // Inicializar o resetear el estado
   const initForm = () => {
     fields.forEach((field) => {
       const hasInitial = initialValues && initialValues[field.name] !== undefined
@@ -24,14 +22,12 @@ export function useDynamicForm(fields, initialValues = {}) {
 
   initForm()
 
-  // Sincronizar si cambian los valores iniciales (modo edición)
   watch(
     () => initialValues,
     () => initForm(),
     { deep: true },
   )
 
-  // Validar campos obligatorios
   const validate = () => {
     let hasError = false
     fields.forEach((field) => {
@@ -51,7 +47,7 @@ export function useDynamicForm(fields, initialValues = {}) {
         }
       }
     })
-    return !hasError // Retorna true si pasó la validación
+    return !hasError
   }
 
   const resetForm = () => {

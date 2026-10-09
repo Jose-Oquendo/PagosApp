@@ -1,5 +1,6 @@
 <template>
-  <div class="fullscreen flex flex-center q-pa-md bg-grey-2">
+<div class="bg-login fullscreen flex flex-center">
+  <div class="q-pa-md">
     <q-card style="width: 100%; max-width: 380px" class="q-pa-sm shadow-2">
       <q-card-section class="text-center">
         <q-avatar size="56px" font-size="32px" color="apppagos" text-color="white" icon="lock" />
@@ -44,6 +45,7 @@
       </q-card-section>
     </q-card>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -56,13 +58,9 @@ const router = useRouter()
 const showPassword = ref(false)
 
 async function onSubmit() {
-  try {
-    await auth.handleLogin()
-    if (auth.isLoggedIn) {
-      await router.push({ name: 'home' })
-    }
-  } catch (error) {
-    console.error('Fallo en autenticación:', error)
+  await auth.handleLogin()
+  if (auth.isLoggedIn) {
+    await router.push({ name: 'home' })
   }
 }
 </script>

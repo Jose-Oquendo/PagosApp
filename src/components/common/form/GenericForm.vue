@@ -1,6 +1,6 @@
 <template>
   <q-card flat bordered class="q-pa-md">
-    <q-form @submit.prevent="handleSubmit" @reset.prevent="handleReset">
+    <q-form @submit.prevent="handleSubmit">
       <div class="row q-col-gutter-md">
         <div v-for="field in fields" :key="field.name" :class="field.colClass || 'col-12 col-md-6'">
           <div v-if="field.sectionTitle" class="text-subtitle1 text-weight-bold q-mt-md q-mb-sm col-12">
@@ -46,7 +46,7 @@
       <slot />
 
       <div class="row q-mt-xl q-gutter-sm justify-end">
-        <q-btn :label="cancelLabel" color="grey-7" flat type="reset" />
+        <q-btn :label="cancelLabel" @click="handleReset" color="grey-7" flat type="reset" />
         <q-btn :label="submitLabel" color="primary" type="submit" />
       </div>
     </q-form>

@@ -1,8 +1,14 @@
-// app global css
+.bg-login {
+  background-image: url('public/imgs/hamonazaryan1-notebook-2386034_1920.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 .bg-apppagos {
   background-color: $apppagos !important;
 }
-
 .q-layout__section--marginal {
   background-color: $apppagos !important;
 }

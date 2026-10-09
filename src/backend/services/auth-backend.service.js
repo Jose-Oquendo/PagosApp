@@ -6,7 +6,6 @@ import {
 import { createApiResponse } from '../utils/response'
 
 export class AuthBackendService {
- 
   #generateMockJwt(user) {
     const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }))
     const payload = btoa(
@@ -14,7 +13,7 @@ export class AuthBackendService {
         sub: user.id,
         role: user.role,
         email: user.email,
-        exp: Date.now() + 1000 * 60 * 60 * 8, // 8 horas
+        exp: Date.now() + 1000 * 60 * 60 * 8,
       }),
     )
     const signature = btoa('mock-signature-pagosapp')
@@ -82,7 +81,6 @@ export class AuthBackendService {
       return createApiResponse.error('Token inválido o expirado', 401)
     }
 
-    // Verificar expiración simulada
     if (payload.exp && Date.now() > payload.exp) {
       return createApiResponse.error('El token de sesión ha expirado', 401)
     }

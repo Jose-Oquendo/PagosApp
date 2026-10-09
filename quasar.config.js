@@ -33,7 +33,7 @@ export default defineConfig((/* ctx */) => {
     build: {
       target: {
         browser: 'baseline-widely-available',
-        node: 'node22'
+        node: 'node22',
       },
 
       filenameBasedRouting: false,
@@ -91,7 +91,7 @@ export default defineConfig((/* ctx */) => {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Notify'],
+      plugins: ['Notify', 'Dialog'],
     },
 
     // animations: 'all', // --- includes all animations
