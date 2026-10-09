@@ -1,14 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { authRepository } from '@/services/auth/auth.repository'
-
-function getStoredUser() {
-  try {
-    const raw = localStorage.getItem('user')
-    return raw ? JSON.parse(raw) : null
-  } catch {
-    return null
-  }
-}
+import { getStoredUser } from '@/utils/StoredUser'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
