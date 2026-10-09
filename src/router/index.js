@@ -21,7 +21,6 @@ export default defineRouter(() => {
     history: createHistory(import.meta.env.QUASAR_VUE_ROUTER_BASE),
   })
 
-  // Guard
   Router.beforeEach((to, from, next) => {
     const authStore = useAuthStore()
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)

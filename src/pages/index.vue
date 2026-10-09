@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="bg-indigo-7">
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
@@ -24,9 +24,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useAuthStore } from '../stores/auth-store'
-import Navigator from '@/components/nav/Navigator.vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth-store'
+import Navigator from '@/components/common/nav/Navigator.vue'
 
 const auth = useAuthStore()
 const router = useRouter()

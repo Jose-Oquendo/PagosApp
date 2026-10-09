@@ -3,7 +3,7 @@ const routes = [
     path: '/',
     name: 'login',
     meta: { requiresAuth: false },
-    component: () => import('@/pages/LoginPage.vue'),
+    component: () => import('@/pages/auth/LoginPage.vue'),
   },
   {
     path: '/main',
@@ -16,9 +16,9 @@ const routes = [
         component: () => import('@/pages/index/HomePage.vue'),
       },
       {
-        path: 'second',
-        name: 'second',
-        component: () => import('@/pages/index/second.vue'),
+        path: '/payments',
+        name: 'payments',
+        component: () => import('@/pages/index/PaymentPage.vue'),
       },
     ],
   },
